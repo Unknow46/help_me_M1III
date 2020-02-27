@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "918716327391",
+    "firebase_url": "https://helpmem1ii.firebaseio.com",
+    "project_id": "helpmem1ii",
+    "storage_bucket": "helpmem1ii.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918716327391:android:7d11c48024e5115703506a",
+        "android_client_info": {
+          "package_name": "com.example.help_me_m1iii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918716327391-vccitj51b4a49s0sit4ngtu8t8cb9o89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.help_me_m1iii",
+            "certificate_hash": "cad219894995043b9e00cf37ba60a249fc421bf5"
+          }
+        },
+        {
+          "client_id": "918716327391-2or6hfnutco7ntb39a170kj9hn9hk6nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZbghbQl3umGO2Z5G2-xbHn41-JUaNG90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918716327391-2or6hfnutco7ntb39a170kj9hn9hk6nl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
