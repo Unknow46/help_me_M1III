@@ -15,51 +15,56 @@ import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.activity_phone_authentication.*
 import java.util.concurrent.TimeUnit
 
+
 class PhoneAuthentication : AppCompatActivity() {
+
     lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     lateinit var mAuth: FirebaseAuth
     var verificationId = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_authentication)
         mAuth = FirebaseAuth.getInstance()
-        validateCodeButton.setOnClickListener {
-                //view: View? -> progress.visibility = View.VISIBLE
+        veriBtn.setOnClickListener {
+                view: View? -> progress.visibility = View.VISIBLE
             verify ()
         }
-        loginButton.setOnClickListener {
-                //view: View? -> progress.visibility = View.VISIBLE
+        authBtn.setOnClickListener {
+                view: View? -> progress.visibility = View.VISIBLE
             authenticate()
         }
     }
 
+
     private fun verificationCallbacks () {
         mCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                progress.visibility = View.INVISIBLE
                 signIn(credential)
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
             }
 
-            override fun onCodeSent(
-                verification: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
-                super.onCodeSent(verification, token)
-                verificationId = verification.toString()
-                //progress.visibility = View.INVISIBLE
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                verificationId = p0.toString()
+                progress.visibility = View.INVISIBLE
             }
 
         }
     }
 
     private fun verify () {
+
         verificationCallbacks()
-        val phoneNumber = phoneNumber.text.toString()
+
+        val phnNo = phnNoTxt.text.toString()
+
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phoneNumber,
+            phnNo,
             60,
             TimeUnit.SECONDS,
             this,
@@ -73,18 +78,24 @@ class PhoneAuthentication : AppCompatActivity() {
                     task: Task<AuthResult> ->
                 if (task.isSuccessful) {
                     toast("Logged in Successfully :)")
-                    startActivity(Intent(this, home::class.java))
+                    startActivity(Intent(this, Home::class.java))
                 }
             }
     }
 
     private fun authenticate () {
-        val verifiNo = codeText.text.toString()
-        val credential = PhoneAuthProvider.getCredential(verificationId!!, verifiNo)
+
+        val verifiNo = verifiTxt.text.toString()
+
+        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, verifiNo)
+
         signIn(credential)
+
     }
 
     private fun toast (msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
+
+
 }
