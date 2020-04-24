@@ -1,22 +1,24 @@
 package com.example.help_me_m1iii.ui.fragments
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-
+import androidx.fragment.app.Fragment
 import com.example.help_me_m1iii.R
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +34,8 @@ class HomeFragments : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var STORAGE_PERMISSION_CODE = 1
+    private var requestSendSms: Int = 2
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,15 +55,40 @@ class HomeFragments : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*
+        val intent = Intent(Intent.ACTION_SENDTO)
+        val uri = Uri.parse("smsto: 0603970213")
+        intent.data = uri
+        intent.putExtra("sms_body", "C'est un message d'alerte je suis en danger")
+        */
+
         AlertButton.setOnClickListener {
-            textView2.setText("hello")
+            if(ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.SEND_SMS)
+                == PermissionChecker.PERMISSION_GRANTED){
+                sendSms()
+
+            }
+            else{
+                ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.SEND_SMS),requestSendSms)
+                }
+
             }
         }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,grantResults: IntArray) {
+        if (requestCode == requestSendSms ) sendSms()
+    }
+    private fun sendSms() {
+        val number = "0603970213"
+        val text = "C'est un message d'alerte je suis en danger"
+
+        SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+
+        Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
+    }
 
     companion object {
         /**
