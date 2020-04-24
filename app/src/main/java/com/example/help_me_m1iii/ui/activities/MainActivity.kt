@@ -2,6 +2,7 @@ package com.example.help_me_m1iii.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import androidx.fragment.app.FragmentTransaction
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.ui.fragments.FavoriteFragments
@@ -13,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var homeFragments: HomeFragments
     lateinit var favoriteFragments: FavoriteFragments
     lateinit var settingsFragments: SettingsFragments
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +61,11 @@ class MainActivity : AppCompatActivity() {
             true
             }
 
-
         }
+
+
+
+
 
    }
 

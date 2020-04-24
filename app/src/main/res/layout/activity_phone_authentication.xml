@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.authentification.PhoneAuthentication">
+    tools:context=".ui.login.authentification.PhoneAuthentication"
+    android:background="@color/blue">
 
     <EditText
         android:id="@+id/phnNoTxt"
@@ -30,20 +31,22 @@
 
     <Button
         android:id="@+id/veriBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/verifiTxt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
+        android:background="@drawable/custom_button2"
         android:text="Verify" />
 
     <Button
         android:id="@+id/authBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/veriBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
+        android:background="@drawable/custom_button2"
         android:text="Authenticate" />
 
     <ProgressBar

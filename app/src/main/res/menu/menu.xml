@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-
     <item
         android:id="@+id/favorite"
         android:title="Favorite"
-        android:icon="@drawable/ic_favorite_black_24dp"
+        android:icon="@drawable/fav"
+
         />
 
     <item
-    android:id="@+id/home"
-    android:title="Home"
-    android:icon="@drawable/ic_wifi_tethering_black_24dp"
-    />
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"
+        />
+
     <item
         android:id="@+id/settings"
         android:title="Settings"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/settings"
         />
 
 
