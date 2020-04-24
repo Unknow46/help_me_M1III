@@ -1,19 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".ui.fragments.HomeFragments">
+    tools:context=".ui.fragments.HomeFragments"
+    android:background="@color/blue">
 
-    <Button
-        android:id="@+id/AllertButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Call"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/AlertButton"
+        android:layout_width="131dp"
+        android:layout_height="139dp"
+        android:background="@drawable/custom_button"
+        android:src="@drawable/phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</FrameLayout >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.392" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press to send an alert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AlertButton"
+        app:layout_constraintVertical_bias="0.176"
+        android:textSize="20dp"
+        android:textColor="@color/withe"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/AlertButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.467"
+        android:textColor="@color/withe"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout >
