@@ -1,67 +1,41 @@
 package com.example.help_me_m1iii.adapters
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.TextView
-import java.util.ArrayList
+import android.widget.AdapterView
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.activities.ContactModel
+import com.example.help_me_m1iii.models.Contacte
+import kotlinx.android.synthetic.main.items_contact.view.*
 
-class ContactAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>) : BaseAdapter() {
+class ContactAdapter(val items: MutableList<Contacte>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-    override fun getViewTypeCount(): Int {
-        return count
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val lineView = LayoutInflater.from(parent.context).inflate(R.layout.items_contact, parent, false)
+        return ViewHolder(lineView)
     }
 
-    override fun getItemViewType(position: Int): Int {
+    override fun getItemCount(): Int = items.size
 
-        return position
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindAndVersion(items[position])
     }
 
-    override fun getCount(): Int {
-        return contactModelArrayList.size
-    }
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view), AdapterView.OnItemClickListener {
 
-    override fun getItem(position: Int): Any {
-        return contactModelArrayList[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var convertView = convertView
-        val holder: ViewHolder
-
-        if (convertView == null) {
-            holder = ViewHolder()
-            val inflater = context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = inflater.inflate(R.layout.activity_contacts, null, true)
-
-            holder.tvname = convertView!!.findViewById(R.id.name) as TextView
-            holder.tvnumber = convertView.findViewById(R.id.number) as TextView
-
-            convertView.tag = holder
-        } else {
-            // the getTag returns the viewHolder object set as a tag to the view
-            holder = convertView.tag as ViewHolder
+        fun bindAndVersion(nom: Contacte) {
+            with(nom) {
+                itemView.contact_name.text = "$name"
+            }
         }
 
-        holder.tvname!!.setText(contactModelArrayList[position].getNames())
-        holder.tvnumber!!.setText(contactModelArrayList[position].getNumbers())
-
-        return convertView
-    }
-
-    private inner class ViewHolder {
-
-        var tvname: TextView? = null
-        var tvnumber: TextView? = null
+        override fun onItemClick(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
+            //TODO
+        }
 
     }
+
 }
