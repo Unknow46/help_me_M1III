@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.models.Contacte
 import kotlinx.android.synthetic.main.items_contact.view.*
 
-class ContactAdapter(val items: MutableList<Contacte>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+
+
+class ContactAdapter(private val items: MutableList<Contacte>, private val clickListener: (Contacte) -> Unit) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+
+    var contacts: MutableList<Contacte> = items
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val lineView = LayoutInflater.from(parent.context).inflate(R.layout.items_contact, parent, false)
@@ -21,21 +24,21 @@ class ContactAdapter(val items: MutableList<Contacte>) : RecyclerView.Adapter<Co
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindAndVersion(items[position])
+        holder.bindAndVersion(contacts[position], clickListener)
     }
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view), AdapterView.OnItemClickListener {
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindAndVersion(nom: Contacte) {
-            with(nom) {
-                itemView.contact_name.text = "$name"
-            }
+
+
+        fun bindAndVersion(contactes: Contacte, clickListener: (Contacte) -> Unit) {
+            with(contactes) {
+                itemView.contact_name.text = name
+                itemView.phone_number.text = phone_number
+
+                itemView.setOnClickListener { clickListener(contactes)}
+                }
         }
-
-        override fun onItemClick(p0: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
-            //TODO
-        }
-
     }
 
 }

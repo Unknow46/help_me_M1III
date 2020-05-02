@@ -3,11 +3,11 @@ package com.example.help_me_m1iii.fragments
 import android.content.ContentResolver
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
@@ -50,8 +50,13 @@ class FragmentContacte : Fragment() {
     }
 
     private fun onCreateComponent(users: MutableList<Contacte>) {
-        adapter = ContactAdapter(users)
+        adapter = ContactAdapter(users,{ contacte ->  contacteClickListener(contacte)})
     }
+
+    private fun contacteClickListener(contacte: Contacte) {
+        Log.e("Resultat : ", contacte.name)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,7 +97,11 @@ class FragmentContacte : Fragment() {
                                     while (cursorPhone.moveToNext()) {
                                         val name = cursorPhone.getString(
                                             cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                                        User.add(Contacte(name))
+
+                                        val phone_number = cursorPhone.getString(
+                                            cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+                                        User.add(Contacte(name, phone_number))
                                     }
 
                                 }
@@ -106,4 +115,6 @@ class FragmentContacte : Fragment() {
         cursor?.close()
         return User
     }
+
+
 }
