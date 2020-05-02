@@ -17,10 +17,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="2dp"
         tools:ignore="MissingConstraints">
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:id="@+id/conteneur"
             android:layout_height="match_parent"
             android:layout_margin="4dp">
 
@@ -33,13 +36,14 @@
 
             <TextView
                 android:id="@+id/contact_name"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="First contact"
                 android:textStyle="bold"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@id/contact_photo"
-                android:textColor="@android:color/black"
+                android:textColor="@color/projectColor"
                 android:textSize="20sp" />
 
             <TextView

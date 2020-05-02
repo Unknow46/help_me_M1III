@@ -1,5 +1,6 @@
 package com.example.help_me_m1iii.adapters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,6 @@ import kotlinx.android.synthetic.main.items_contact.view.*
 
 class ContactAdapter(private val items: MutableList<Contacte>, private val clickListener: (Contacte) -> Unit) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-    var contacts: MutableList<Contacte> = items
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val lineView = LayoutInflater.from(parent.context).inflate(R.layout.items_contact, parent, false)
         return ViewHolder(lineView)
@@ -24,19 +23,21 @@ class ContactAdapter(private val items: MutableList<Contacte>, private val click
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindAndVersion(contacts[position], clickListener)
+        holder.bindAndVersion(items[position], clickListener)
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
 
 
+        @SuppressLint("ResourceAsColor")
         fun bindAndVersion(contactes: Contacte, clickListener: (Contacte) -> Unit) {
             with(contactes) {
                 itemView.contact_name.text = name
                 itemView.phone_number.text = phone_number
 
-                itemView.setOnClickListener { clickListener(contactes)}
+                itemView.setOnClickListener {
+                    clickListener(contactes)}
                 }
         }
     }

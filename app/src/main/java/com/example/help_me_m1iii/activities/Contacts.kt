@@ -9,6 +9,7 @@ import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.fragments.FragmentContacte
 
 
+
 class Contacts : AppCompatActivity() {
 
 
@@ -43,7 +44,5 @@ class Contacts : AppCompatActivity() {
     fun initializeFragmentRecyclerView(){
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FragmentContacte.newInstance(), FragmentContacte.TAG).commit()
         }
-        /**
-        listContacts.layoutManager = LinearLayoutManager(this)
-        listContacts.adapter = ContactAdapter(element)**/
+
     }

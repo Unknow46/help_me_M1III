@@ -5,23 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/affichage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="25dp"
+        android:text="Select Contact (5 max)"
+        android:textColor="@color/projectColor"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/limite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="25dp"
+        android:text="0/5"
+        app:layout_constraintEnd_toEndOf="@id/selected_contact"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/selected_contact"
+        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@id/affichage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Liste des contactes"
         tools:ignore="MissingConstraints" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selected_contact">
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
