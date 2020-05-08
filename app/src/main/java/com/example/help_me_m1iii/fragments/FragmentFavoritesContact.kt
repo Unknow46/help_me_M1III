@@ -1,5 +1,6 @@
 package com.example.help_me_m1iii.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,13 +12,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.adapters.ContactAdapter
 import com.example.help_me_m1iii.models.Contacte
+import java.io.BufferedReader
+import java.io.Console
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.lang.StringBuilder
 
 /**
  * A simple [Fragment] subclass.
  */
 class FragmentFavoritesContact : Fragment() {
     protected lateinit var rootView: View
-    var contacte_list: MutableList<Contacte>? = null
+    val contactes: MutableList<Contacte> = ArrayList()
+    private var contacte_list: MutableList<Contacte>? = null
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: ContactAdapter
 
@@ -38,9 +45,34 @@ class FragmentFavoritesContact : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //this.contacte_list = getFavorite()
+        retrieveContact()
+        this.contacte_list = contactes
         onCreateComponent(this.contacte_list!!)
     }
+
+    private fun retrieveContact() {
+        var fileInputString: FileInputStream? = null
+        fileInputString = context?.openFileInput("save.txt")
+        var inputStreamReader = InputStreamReader(fileInputString)
+
+        var bufferedReader = BufferedReader(inputStreamReader)
+
+        var result: String? = null
+        while ({ result = bufferedReader.readLine(); result} () !=  null) {
+            //splitting the result to identify the contact
+            val line:MutableList<String> = result?.split(" ") as MutableList<String>
+            //get the phone number of each contact
+            val phone_number = line.last()
+            var contact_saved = ""
+            line.remove(phone_number)
+            line.forEach {
+                contact_saved += "$it "
+            }
+            contactes.add(Contacte(contact_saved, phone_number))
+        }
+
+    }
+
     /**
     private fun getFavorite(): MutableList<Contacte>? {
         //TODO
