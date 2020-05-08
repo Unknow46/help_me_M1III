@@ -24,7 +24,7 @@ import com.example.help_me_m1iii.activities.FavoritesContact
 import com.example.help_me_m1iii.adapters.ContactAdapter
 import com.example.help_me_m1iii.models.Contacte
 import kotlinx.android.synthetic.main.activity_contacte.*
-import java.io.FileOutputStream
+import java.io.*
 import java.lang.NumberFormatException
 
 
@@ -53,8 +53,39 @@ class FragmentContacte : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contacte_list = generateContacte()
-        onCreateComponent(this.contacte_list!!)
+        val file: File? = context?.getFileStreamPath("save.txt")
+        if(file?.exists()!!){
+            favorites_reading()
+            contacte_list = generateContacte()
+            onCreateComponent(this.contacte_list!!)
+            showFavoriteContact(favorite_Contact)
+        }else{
+            contacte_list = generateContacte()
+            onCreateComponent(this.contacte_list!!)
+        }
+    }
+
+    private fun favorites_reading() {
+        var fileInputString: FileInputStream
+        favorite_Contact.clear()
+        fileInputString = context!!.openFileInput("save.txt")
+        var inputStreamReader = InputStreamReader(fileInputString)
+
+        var bufferedReader = BufferedReader(inputStreamReader)
+
+        var result: String? = null
+        while ({ result = bufferedReader.readLine(); result} () !=  null) {
+            //splitting the result to identify the contact
+            val line:MutableList<String> = result?.split(" ") as MutableList<String>
+            //get the phone number of each contact
+            val phone_number = line.last()
+            var contact_saved = ""
+            line.remove(phone_number)
+            line.forEach {
+                contact_saved += "$it"
+            }
+            favorite_Contact.add(Contacte(contact_saved, phone_number))
+        }
     }
 
     private fun onCreateComponent(users: MutableList<Contacte>) {
@@ -82,6 +113,7 @@ class FragmentContacte : Fragment() {
         saveContact()
         val intent = Intent(activity, FavoritesContact::class.java)
         startActivity(intent)
+        activity?.finish()
     }
 
     private fun saveContact() {
@@ -102,12 +134,12 @@ class FragmentContacte : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showFavoriteContact(contactes: MutableList<Contacte>){
-        var all_contacte = ""
-        contactes.forEach {info ->
-            all_contacte += info.name + "  "
-        }
-        activity!!.limite.text = contactes.size.toString()+"/5"
-        activity!!.selected_contact.text = all_contacte
+            var all_contacte = ""
+            contactes.forEach { info ->
+                all_contacte += info.name + "  "
+            }
+            activity!!.limite.text = contactes.size.toString() + "/5"
+            activity!!.selected_contact.text = all_contacte
     }
 
     override fun onCreateView(
