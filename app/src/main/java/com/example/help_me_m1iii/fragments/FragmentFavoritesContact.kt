@@ -1,8 +1,6 @@
 package com.example.help_me_m1iii.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.adapters.ContactAdapter
+import com.example.help_me_m1iii.adapters.FavoritesContactAdapter
 import com.example.help_me_m1iii.models.Contacte
 import java.io.BufferedReader
-import java.io.Console
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.lang.StringBuilder
@@ -26,7 +23,7 @@ class FragmentFavoritesContact : Fragment() {
     val contactes: MutableList<Contacte> = ArrayList()
     private var contacte_list: MutableList<Contacte>? = null
     lateinit var recyclerView: RecyclerView
-    lateinit var adapter: ContactAdapter
+    lateinit var adapter: FavoritesContactAdapter
 
 
     companion object {
@@ -79,12 +76,15 @@ class FragmentFavoritesContact : Fragment() {
     }**/
 
     private fun onCreateComponent(users: MutableList<Contacte>) {
-        adapter = ContactAdapter(users) { contacte ->  contacteClickListener(contacte)}
+        adapter = FavoritesContactAdapter(users) { contacte ->  deleteFavoritesContacte(contacte)}
     }
 
-    private fun contacteClickListener(contacte: Contacte) {
-        Log.d("Contacte :", contacte.name)
+    private fun deleteFavoritesContacte(contacte: Contacte) {
+        val contacte_to_delete = contacte_list!!.indexOf(contacte)
+        contacte_list!!.remove(contacte)
+        adapter.notifyItemRemoved(contacte_to_delete)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
