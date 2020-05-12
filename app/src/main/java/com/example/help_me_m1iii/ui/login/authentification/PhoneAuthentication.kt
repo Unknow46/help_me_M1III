@@ -3,6 +3,7 @@ package com.example.help_me_m1iii.ui.login.authentification
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.help_me_m1iii.R
@@ -31,17 +32,12 @@ class PhoneAuthentication : AppCompatActivity() {
                 view: View? -> progress.visibility = View.VISIBLE
             verify ()
         }
-        authBtn.setOnClickListener {
-                view: View? -> progress.visibility = View.VISIBLE
-            authenticate()
-        }
     }
-
 
     private fun verificationCallbacks () {
         mCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                progress.visibility = View.INVISIBLE
+                //progress.visibility = View.INVISIBLE
                 signIn(credential)
             }
 
@@ -51,9 +47,9 @@ class PhoneAuthentication : AppCompatActivity() {
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(p0, p1)
                 verificationId = p0.toString()
+                codeVerfication(verificationId)
                 progress.visibility = View.INVISIBLE
             }
-
         }
     }
 
@@ -83,19 +79,14 @@ class PhoneAuthentication : AppCompatActivity() {
             }
     }
 
-    private fun authenticate () {
-
-        val verifiNo = verifiTxt.text.toString()
-
-        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, verifiNo)
-
-        signIn(credential)
-
+    private fun codeVerfication (verificationId: String){
+        val intent = Intent(this,CodeVerification::class.java)
+        intent.putExtra("verificationId",verificationId)
+        startActivity(intent)
     }
 
     private fun toast (msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
-
 
 }
