@@ -1,11 +1,10 @@
 package com.example.help_me_m1iii.ui.login.authentification
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.help_me_m1iii.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
@@ -28,6 +27,8 @@ class PhoneAuthentication : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_authentication)
         mAuth = FirebaseAuth.getInstance()
+        code.setFocusable(false);
+        code.setEnabled(false);
         veriBtn.setOnClickListener {
                 view: View? -> progress.visibility = View.VISIBLE
             verify ()
@@ -57,15 +58,24 @@ class PhoneAuthentication : AppCompatActivity() {
 
         verificationCallbacks()
 
-        val phnNo = phnNoTxt.text.toString()
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phnNo,
-            60,
-            TimeUnit.SECONDS,
-            this,
-            mCallbacks
-        )
+        var phnNo = "33" + phnNoTxt.text.toString()
+        val regex = "/^(33|0)(6|7|9)\\d{8}\$/"
+        val PhoneDigits: String = phnNo.replace(regex, "")
+        if(PhoneDigits.length!=11) {
+            toast("Veuillez entrer un numéro de téléphone valide")
+            progress.visibility = View.INVISIBLE
+        }
+        else {
+            phnNo = "+";
+            phnNo += PhoneDigits
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phnNo,
+                60,
+                TimeUnit.SECONDS,
+                this,
+                mCallbacks
+            )
+        }
     }
 
     private fun signIn (credential: PhoneAuthCredential) {
