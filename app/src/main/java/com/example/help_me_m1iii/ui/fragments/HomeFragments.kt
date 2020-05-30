@@ -3,6 +3,12 @@ package com.example.help_me_m1iii.ui.fragments
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+<<<<<<< HEAD
+=======
+import android.content.Intent
+import android.location.Location
+import android.net.Uri
+>>>>>>> :construction: Add fetch user position
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.view.LayoutInflater
@@ -14,7 +20,12 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.example.help_me_m1iii.R
+<<<<<<< HEAD
 import kotlinx.android.synthetic.*
+=======
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+>>>>>>> :construction: Add fetch user position
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -35,18 +46,24 @@ class HomeFragments : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var requestSendSms: Int = 2
+    private var requestGetPosition: Int = 5
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
+        val let = arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+<<<<<<< HEAD
 
 
 
+=======
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+>>>>>>> :construction: Add fetch user position
     }
 
 
@@ -70,29 +87,53 @@ class HomeFragments : Fragment() {
         */
 
         AlertButton.setOnClickListener {
-            if(ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.SEND_SMS)
-                == PermissionChecker.PERMISSION_GRANTED){
+            if((ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.SEND_SMS)
+                == PermissionChecker.PERMISSION_GRANTED) &&
+                (ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PermissionChecker.PERMISSION_GRANTED)){
                 sendSms()
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> :construction: Add fetch user position
             }
             else{
-                ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.SEND_SMS),requestSendSms)
+                if(ActivityCompat.checkSelfPermission(context as Context,
+                        Manifest.permission.SEND_SMS
+                    ) != PermissionChecker.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(context as Activity, arrayOf
+                        (Manifest.permission.SEND_SMS),requestSendSms)
                 }
-
+                if(ActivityCompat.checkSelfPermission(context as Context,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PermissionChecker.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(context as Activity, arrayOf
+                        (Manifest.permission.ACCESS_FINE_LOCATION),requestGetPosition)
+                }
             }
         }
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,grantResults: IntArray) {
-        if (requestCode == requestSendSms ) sendSms()
+        if (requestCode == requestSendSms && requestCode == requestGetPosition ) sendSms()
     }
+
     private fun sendSms() {
-        val number = "0603970213"
-        val text = "C'est un message d'alerte je suis en danger"
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location? ->
+                val latitude  = location?.latitude;
+                val langitude = location?.longitude;
 
-        SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+                val number = "0766766021"
+                val text = "C'est un message d'alerte je suis en danger " +
+                        "http://www.google.com/maps/place/"+latitude+","+langitude
 
-        Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
+                SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+
+                Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
+            }
+
     }
 
     companion object {
