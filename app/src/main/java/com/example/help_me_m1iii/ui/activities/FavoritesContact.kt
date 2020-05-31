@@ -12,12 +12,6 @@ class FavoritesContact() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favorites_contacts)
         initializeFragmentRecyclerView()
-
-        add_contact.setOnClickListener {
-            var fragment = supportFragmentManager.findFragmentById(R.id.fragment_favorite_container) as FragmentFavoritesContact
-            fragment.addingNewFavorites()
-        }
-
     }
 
     fun initializeFragmentRecyclerView(){
