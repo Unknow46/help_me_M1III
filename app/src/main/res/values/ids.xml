@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <item name="settings" type="id" />
+    <item name="favorite" type="id" />
+
     <item name="tabLayout" type="id" />
     <item name="viewpager" type="id" />
     <item name="name" type="id" />
     <item name="number" type="id" />
+
 </resources>
