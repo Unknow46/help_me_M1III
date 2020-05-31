@@ -4,6 +4,7 @@
     package="com.example.help_me_m1iii">
 
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +31,7 @@
             tools:ignore="DuplicateActivity">
 
         </activity>
+
     </application>
 
 </manifest>
