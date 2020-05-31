@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.login.authentification.PhoneAuthentication"
+    android:background="@color/blue">
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#090D66"
-    tools:context=".ui.login.authentification.PhoneAuthentication">
+
 
     <EditText
         android:id="@+id/code"
@@ -49,6 +50,7 @@
 
     <Button
         android:id="@+id/veriBtn"
+
         android:layout_width="182dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/phnNoTxt"
@@ -65,7 +67,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.572"
         tools:ignore="MissingConstraints" />
-
     <ProgressBar
         android:id="@+id/progress"
         style="?android:attr/progressBarStyle"
