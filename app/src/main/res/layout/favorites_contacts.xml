@@ -21,17 +21,8 @@
             android:layout_marginTop="20dp"
             android:text="Favorite Contact"
             android:textSize="22sp"
-            android:textColor="@color/projectColor"
+            android:textColor="@color/white"
             android:gravity="center"/>
-
-        <ImageView
-            android:id="@+id/add_contact"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/titre_favorite"
-            android:src="@drawable/ic_add_circle_outline_black_24dp" />
     </RelativeLayout>
 
 

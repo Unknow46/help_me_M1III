@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.ui.activities.Contacts
 import com.example.help_me_m1iii.ui.adapters.FavoritesContactAdapter
 import com.example.help_me_m1iii.ui.models.Contacte
+import kotlinx.android.synthetic.main.activity_contacts_list.*
 import java.io.*
 import java.lang.NumberFormatException
 
@@ -27,6 +29,7 @@ class FragmentFavoritesContact : Fragment() {
     private var contacte_list: MutableList<Contacte>? = null
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: FavoritesContactAdapter
+    private lateinit var addContact: ImageView
 
 
     companion object {
@@ -127,6 +130,16 @@ class FragmentFavoritesContact : Fragment() {
         recyclerView = rootView.findViewById(R.id.listContacts)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
+    }
+
+
+    @Override
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        addContact = activity!!.findViewById(R.id.add_contact)
+        addContact.setOnClickListener {
+            addingNewFavorites()
+        }
     }
 
     fun addingNewFavorites(){

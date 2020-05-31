@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:id="@+id/conteneur"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:layout_margin="4dp">
 
             <ImageView
@@ -43,7 +44,7 @@
                 android:textStyle="bold"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@id/contact_photo"
-                android:textColor="@color/projectColor"
+                android:textColor="@color/blue"
                 android:textSize="20sp" />
 
             <TextView
@@ -54,6 +55,7 @@
                 android:textSize="15sp"
                 android:layout_below="@id/contact_name"
                 android:layout_toEndOf="@id/contact_photo"
+                android:textColor="@color/black"
                 android:layout_marginStart="8dp"
                 />
 
