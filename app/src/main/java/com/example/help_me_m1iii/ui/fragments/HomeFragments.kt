@@ -3,20 +3,18 @@ package com.example.help_me_m1iii.ui.fragments
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.telephony.SmsManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.example.help_me_m1iii.R
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -24,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -37,12 +37,16 @@ class HomeFragments : Fragment() {
     private var requestSendSms: Int = 2
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+
     }
 
 
@@ -69,6 +73,7 @@ class HomeFragments : Fragment() {
             if(ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.SEND_SMS)
                 == PermissionChecker.PERMISSION_GRANTED){
                 sendSms()
+
 
             }
             else{
