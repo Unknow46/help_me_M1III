@@ -1,10 +1,9 @@
-package com.example.help_me_m1iii.activities
+package com.example.help_me_m1iii.ui.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.fragments.FragmentFavoritesContact
+import com.example.help_me_m1iii.ui.fragments.FragmentFavoritesContact
 import kotlinx.android.synthetic.main.favorites_contacts.*
 
 class FavoritesContact() : AppCompatActivity() {

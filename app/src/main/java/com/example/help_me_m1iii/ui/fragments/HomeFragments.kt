@@ -17,9 +17,11 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.example.help_me_m1iii.R
+import com.example.help_me_m1iii.ui.login.authentification.PhoneAuthentication
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_home.*
 
 
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -44,8 +46,21 @@ class HomeFragments : Fragment() {
     private var requestSendSms: Int = 2
     private var requestGetPosition: Int = 5
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    lateinit var mAuth: FirebaseAuth
 
+    companion object {
+        var TAG = HomeFragments::class.java.simpleName
+        const val ARG_POSITION: String = "position"
 
+        fun newInstance(): HomeFragments {
+            var fragment =
+                HomeFragments();
+            val args = Bundle()
+            args.putInt(ARG_POSITION, 1)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +68,25 @@ class HomeFragments : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        mAuth = FirebaseAuth.getInstance()
 
-
-
+        /*
+        signOut.setOnClickListener {
+                view: View? -> mAuth.signOut()
+            startActivity(Intent(this, PhoneAuthentication::class.java))
+        }
+        */
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        if (mAuth.currentUser == null) {
+            val intent = Intent(activity, PhoneAuthentication::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,25 +152,6 @@ class HomeFragments : Fragment() {
 
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragments.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragments().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
 
 }

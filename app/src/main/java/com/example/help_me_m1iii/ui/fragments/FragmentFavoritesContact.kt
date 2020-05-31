@@ -1,9 +1,8 @@
-package com.example.help_me_m1iii.fragments
+package com.example.help_me_m1iii.ui.fragments
 
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,10 +12,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.activities.Contacts
-import com.example.help_me_m1iii.activities.FavoritesContact
-import com.example.help_me_m1iii.adapters.FavoritesContactAdapter
-import com.example.help_me_m1iii.models.Contacte
+import com.example.help_me_m1iii.ui.activities.Contacts
+import com.example.help_me_m1iii.ui.adapters.FavoritesContactAdapter
+import com.example.help_me_m1iii.ui.models.Contacte
 import java.io.*
 import java.lang.NumberFormatException
 
@@ -36,7 +34,8 @@ class FragmentFavoritesContact : Fragment() {
         const val ARG_POSITION: String = "position"
 
         fun newInstance(): FragmentFavoritesContact {
-            var fragment = FragmentFavoritesContact();
+            var fragment =
+                FragmentFavoritesContact();
             val args = Bundle()
             args.putInt(ARG_POSITION, 1)
             fragment.arguments = args

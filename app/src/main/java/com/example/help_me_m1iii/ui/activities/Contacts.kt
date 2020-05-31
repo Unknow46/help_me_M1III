@@ -1,4 +1,4 @@
-package com.example.help_me_m1iii.activities
+package com.example.help_me_m1iii.ui.activities
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.fragments.FragmentContacte
+import com.example.help_me_m1iii.ui.fragments.FragmentContacte
 
 
 

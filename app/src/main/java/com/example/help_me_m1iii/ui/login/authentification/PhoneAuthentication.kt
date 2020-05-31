@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.help_me_m1iii.R
+import com.example.help_me_m1iii.ui.fragments.HomeFragments
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.AuthResult
@@ -84,7 +85,7 @@ class PhoneAuthentication : AppCompatActivity() {
                     task: Task<AuthResult> ->
                 if (task.isSuccessful) {
                     toast("Logged in Successfully :)")
-                    startActivity(Intent(this, Home::class.java))
+                    startActivity(Intent(this, HomeFragments::class.java))
                 }
             }
     }

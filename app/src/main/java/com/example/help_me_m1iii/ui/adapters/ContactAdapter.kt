@@ -1,4 +1,4 @@
-package com.example.help_me_m1iii.adapters
+package com.example.help_me_m1iii.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.models.Contacte
+import com.example.help_me_m1iii.ui.models.Contacte
 import kotlinx.android.synthetic.main.items_contact.view.*
 
 

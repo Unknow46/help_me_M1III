@@ -1,16 +1,12 @@
-package com.example.help_me_m1iii.fragments
+package com.example.help_me_m1iii.ui.fragments
 
-import android.Manifest
 import android.annotation.SuppressLint
 
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.renderscript.RenderScript
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +14,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.activities.Contacts
 
-import com.example.help_me_m1iii.activities.FavoritesContact
-import com.example.help_me_m1iii.adapters.ContactAdapter
-import com.example.help_me_m1iii.models.Contacte
+import com.example.help_me_m1iii.ui.activities.FavoritesContact
+import com.example.help_me_m1iii.ui.adapters.ContactAdapter
+import com.example.help_me_m1iii.ui.models.Contacte
 import kotlinx.android.synthetic.main.activity_contacte.*
 import java.io.*
 import java.lang.NumberFormatException
@@ -43,7 +38,8 @@ class FragmentContacte : Fragment() {
         const val ARG_POSITION: String = "positioin"
 
         fun newInstance(): FragmentContacte {
-            var fragment = FragmentContacte();
+            var fragment =
+                FragmentContacte();
             val args = Bundle()
             args.putInt(ARG_POSITION, 1)
             fragment.arguments = args
