@@ -34,8 +34,6 @@
 
         <activity android:name=".ui.login.authentification.CodeVerification"></activity>
 
-
-        
         <activity
             android:name=".ui.login.authentification.PhoneAuthentication"
             android:label="@string/title_activity_authentification"
