@@ -1,12 +1,14 @@
 package com.example.help_me_m1iii.ui.fragments
 
+
 import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.location.Location
-import android.net.Uri
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +17,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
-import com.airbnb.lottie.LottieAnimationView
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.ui.login.authentification.PhoneAuthentication
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_home.*
-
-
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -70,6 +68,16 @@ class HomeFragments : Fragment() {
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
         mAuth = FirebaseAuth.getInstance()
+        val lm =
+            context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var gps_enabled = false
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+        }
+        if(!gps_enabled){
+            context?.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
 
         /*
         signOut.setOnClickListener {
