@@ -3,12 +3,9 @@ package com.example.help_me_m1iii.ui.fragments
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-<<<<<<< HEAD
-=======
 import android.content.Intent
 import android.location.Location
 import android.net.Uri
->>>>>>> :construction: Add fetch user position
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.view.LayoutInflater
@@ -20,12 +17,11 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.example.help_me_m1iii.R
-<<<<<<< HEAD
-import kotlinx.android.synthetic.*
-=======
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
->>>>>>> :construction: Add fetch user position
+
+
+
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -57,13 +53,11 @@ class HomeFragments : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-<<<<<<< HEAD
 
-
-
-=======
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
->>>>>>> :construction: Add fetch user position
+
+
+
     }
 
 
@@ -92,11 +86,7 @@ class HomeFragments : Fragment() {
                 (ActivityCompat.checkSelfPermission(context as Context,Manifest.permission.ACCESS_FINE_LOCATION)
                         == PermissionChecker.PERMISSION_GRANTED)){
                 sendSms()
-<<<<<<< HEAD
 
-
-=======
->>>>>>> :construction: Add fetch user position
             }
             else{
                 if(ActivityCompat.checkSelfPermission(context as Context,
