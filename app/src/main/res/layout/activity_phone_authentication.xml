@@ -1,64 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.authentification.PhoneAuthentication"
     android:background="@color/blue">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/phnNoTxt"
+        android:backgroundTint="@android:color/white"
+        android:inputType="number"
+        android:text="+33"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/veriBtn"
+        app:layout_constraintEnd_toStartOf="@+id/phnNoTxt"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854" />
 
     <EditText
         android:id="@+id/phnNoTxt"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/white"
         android:hint="Phone Number"
+        android:inputType="phone"
         android:textAlignment="center"
+        android:textColorHint="@android:color/white"
         android:textSize="24sp"
-        android:inputType="phone"/>
-
-    <EditText
-        android:id="@+id/verifiTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:textAlignment="center"
-        android:inputType="number"
-        android:layout_below="@+id/phnNoTxt"
-        android:layout_marginTop="43dp"
-        android:hint="Verification Code" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/veriBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.846" />
 
     <Button
         android:id="@+id/veriBtn"
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/verifiTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/custom_button2"
-        android:text="Verify" />
 
-    <Button
-        android:id="@+id/authBtn"
-        android:layout_width="115dp"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/veriBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/custom_button2"
-        android:text="Authenticate" />
-
+        android:layout_below="@+id/phnNoTxt"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/my_button_bg"
+        android:text="Submit"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.572"
+        tools:ignore="MissingConstraints" />
     <ProgressBar
         android:id="@+id/progress"
         style="?android:attr/progressBarStyle"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignTop="@+id/phnNoTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:visibility="invisible" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/phnNoTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78" />
 
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

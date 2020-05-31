@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="blue">#090D66</color>
     <color name="withe">#ffffff</color>
+
+    <color name="projectColor">#090D66</color>
+
 </resources>
