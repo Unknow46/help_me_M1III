@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="blue">#090D66</color>
-    <color name="withe">#ffffff</color>
+    <color name="black">#111111</color>
+    <color name="white">#ffffff</color>
 
     <color name="projectColor">#090D66</color>
 

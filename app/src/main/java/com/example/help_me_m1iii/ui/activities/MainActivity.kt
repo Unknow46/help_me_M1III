@@ -6,13 +6,14 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentTransaction
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.ui.fragments.FavoriteFragments
+import com.example.help_me_m1iii.ui.fragments.FragmentFavoritesContact
 import com.example.help_me_m1iii.ui.fragments.HomeFragments
 import com.example.help_me_m1iii.ui.fragments.SettingsFragments
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var homeFragments: HomeFragments
-    lateinit var favoriteFragments: FavoriteFragments
+    lateinit var favoriteFragments: FragmentFavoritesContact
     lateinit var settingsFragments: SettingsFragments
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.favorite -> {
-                    favoriteFragments = FavoriteFragments()
+                    favoriteFragments = FragmentFavoritesContact()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragmentContainer, favoriteFragments)

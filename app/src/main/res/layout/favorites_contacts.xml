@@ -21,7 +21,7 @@
             android:layout_marginTop="20dp"
             android:text="Favorite Contact"
             android:textSize="22sp"
-            android:textColor="@color/projectColor"
+            android:textColor="@color/white"
             android:gravity="center"/>
 
         <ImageView
