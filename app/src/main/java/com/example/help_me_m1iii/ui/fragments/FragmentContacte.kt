@@ -1,24 +1,27 @@
 package com.example.help_me_m1iii.ui.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
 
-import com.example.help_me_m1iii.ui.activities.FavoritesContact
+
 import com.example.help_me_m1iii.ui.adapters.ContactAdapter
 import com.example.help_me_m1iii.ui.models.Contacte
-import kotlinx.android.synthetic.main.activity_contacte.*
 import java.io.*
 import java.lang.NumberFormatException
 
@@ -31,11 +34,14 @@ class FragmentContacte : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: ContactAdapter
     var favorite_Contact: MutableList<Contacte> = ArrayList()
+    private lateinit var limiteUser: TextView
+    private lateinit var selectedContact: TextView
+    private lateinit var FavoritesContact: FragmentFavoritesContact
 
     companion object {
-        const val PERMISSIONS_REQUEST_WRITE_EXTERNAL_FILES = 100
+        const val PERMISSIONS_REQUEST_READ_CONTACTS = 100
         var TAG = FragmentContacte::class.java.simpleName
-        const val ARG_POSITION: String = "positioin"
+        const val ARG_POSITION: String = "position"
 
         fun newInstance(): FragmentContacte {
             var fragment =
@@ -49,12 +55,20 @@ class FragmentContacte : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val check_permission = checkPermission()
+
+        if(!check_permission){
+            FavoritesContact = FragmentFavoritesContact()
+            val refusedAccess = this.fragmentManager!!.beginTransaction()
+            refusedAccess.replace(R.id.fragmentContainer, FavoritesContact)
+            refusedAccess.commit()
+        }
+
         val file: File? = context?.getFileStreamPath("save.txt")
         if(file?.exists()!!){
             favorites_reading()
             contacte_list = generateContacte()
             onCreateComponent(this.contacte_list!!)
-            showFavoriteContact(favorite_Contact)
         }else{
             contacte_list = generateContacte()
             onCreateComponent(this.contacte_list!!)
@@ -107,9 +121,10 @@ class FragmentContacte : Fragment() {
 
     private fun startFavoriteActivity() {
         saveContact()
-        val intent = Intent(activity, FavoritesContact::class.java)
-        startActivity(intent)
-        activity?.finish()
+        FavoritesContact = FragmentFavoritesContact()
+        val favContactTrans = this.fragmentManager!!.beginTransaction()
+        favContactTrans.replace(R.id.fragmentContainer, FavoritesContact)
+        favContactTrans.commit()
     }
 
     private fun saveContact() {
@@ -134,22 +149,25 @@ class FragmentContacte : Fragment() {
             contactes.forEach { info ->
                 all_contacte += info.name + "  "
             }
-            activity!!.limite.text = contactes.size.toString() + "/5"
-            activity!!.selected_contact.text = all_contacte
+
+          limiteUser.text = contactes.size.toString() + "/5"
+          selectedContact.text = all_contacte
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.activity_contacts_list,
+        rootView = inflater.inflate(R.layout.activity_contacte,
             container, false)
         initRecycleView()
+        limiteUser = rootView.findViewById(R.id.limite)
+        selectedContact = rootView.findViewById(R.id.selected_contact)
         return rootView
     }
 
     fun initRecycleView(){
-        recyclerView = rootView.findViewById(R.id.listContacts)
+        recyclerView = rootView.findViewById(R.id.liste_contacte)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
     }
@@ -194,6 +212,32 @@ class FragmentContacte : Fragment() {
         }
         cursor?.close()
         return User
+    }
+
+
+    private fun checkPermission(): Boolean {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it, Manifest.permission.READ_CONTACTS
+                )
+            } != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_CONTACTS),
+                PERMISSIONS_REQUEST_READ_CONTACTS
+            )
+            //callback onRequestPermissionsResult
+        } else {
+            return true
+        }
+        return false
+    }
+
+    @Override
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        showFavoriteContact(favorite_Contact)
     }
 
 }

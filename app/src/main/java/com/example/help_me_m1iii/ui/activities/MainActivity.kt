@@ -5,7 +5,6 @@ import android.os.Bundle
 
 import androidx.fragment.app.FragmentTransaction
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.ui.fragments.FavoriteFragments
 import com.example.help_me_m1iii.ui.fragments.FragmentFavoritesContact
 import com.example.help_me_m1iii.ui.fragments.HomeFragments
 import com.example.help_me_m1iii.ui.fragments.SettingsFragments

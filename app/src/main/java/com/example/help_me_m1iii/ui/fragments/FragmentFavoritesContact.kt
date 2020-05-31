@@ -3,7 +3,6 @@ package com.example.help_me_m1iii.ui.fragments
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,10 +12,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.help_me_m1iii.R
-import com.example.help_me_m1iii.ui.activities.Contacts
 import com.example.help_me_m1iii.ui.adapters.FavoritesContactAdapter
 import com.example.help_me_m1iii.ui.models.Contacte
-import kotlinx.android.synthetic.main.activity_contacts_list.*
 import java.io.*
 import java.lang.NumberFormatException
 
@@ -30,6 +27,7 @@ class FragmentFavoritesContact : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: FavoritesContactAdapter
     private lateinit var addContact: ImageView
+    lateinit var selectionContact: FragmentContacte
 
 
     companion object {
@@ -52,9 +50,10 @@ class FragmentFavoritesContact : Fragment() {
         retrieveContact()
 
         if (contactes.isEmpty()){
-            val intent = Intent(activity, Contacts::class.java)
-            startActivity(intent)
-            activity?.finish()
+            selectionContact = FragmentContacte()
+            val selectContact = this.fragmentManager!!.beginTransaction()
+            selectContact.replace(R.id.fragmentContainer, selectionContact)
+            selectContact.commit()
         }
 
         this.contacte_list = contactes
@@ -150,8 +149,11 @@ class FragmentFavoritesContact : Fragment() {
             dialogBuilder.setMessage("Impossible d'ajouter plus de contactes")
             dialogBuilder.show()
         }else{
-            val intent = Intent(activity, Contacts::class.java)
-            startActivity(intent)
+            saveFavorite()
+            selectionContact = FragmentContacte()
+            val selectContact = this.fragmentManager!!.beginTransaction()
+            selectContact.replace(R.id.fragmentContainer, selectionContact)
+            selectContact.commit()
         }
     }
 

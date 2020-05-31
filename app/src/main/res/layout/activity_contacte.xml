@@ -13,7 +13,7 @@
         android:gravity="center_horizontal"
         android:textSize="25dp"
         android:text="Select Contact (5 max)"
-        android:textColor="@color/projectColor"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
@@ -44,10 +44,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selected_contact">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/liste_contacte"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
