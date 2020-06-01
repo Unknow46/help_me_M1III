@@ -19,10 +19,15 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.example.help_me_m1iii.R
 import com.example.help_me_m1iii.ui.login.authentification.PhoneAuthentication
+import com.example.help_me_m1iii.ui.models.Contacte
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +50,7 @@ class HomeFragments : Fragment() {
     private var requestGetPosition: Int = 5
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var mAuth: FirebaseAuth
+    private var listContact: MutableList<Contacte> = ArrayList()
 
     companion object {
         var TAG = HomeFragments::class.java.simpleName
@@ -143,17 +149,49 @@ class HomeFragments : Fragment() {
         if (requestCode == requestSendSms && requestCode == requestGetPosition ) sendSms()
     }
 
+
+    private fun retrieveContact() {
+        var fileInputString: FileInputStream? = null
+        val file: File? = context?.getFileStreamPath("save.txt")
+
+        if (file?.exists()!!){
+            fileInputString = context?.openFileInput("save.txt")
+
+            var inputStreamReader = InputStreamReader(fileInputString)
+
+            var bufferedReader = BufferedReader(inputStreamReader)
+
+            var result: String? = null
+            while ({ result = bufferedReader.readLine(); result} () !=  null) {
+                //splitting the result to identify the contact
+                val line:MutableList<String> = result?.split(" ") as MutableList<String>
+                //get the phone number of each contact
+                val phone_number = line.last()
+                var contact_saved = ""
+                line.remove(phone_number)
+                line.forEach {
+                    contact_saved += "$it "
+                }
+                listContact.add(Contacte(contact_saved, phone_number))
+            }
+        }
+    }
+
     private fun sendSms() {
+        retrieveContact()
+        print(listContact.toString())
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 val latitude  = location?.latitude;
                 val langitude = location?.longitude;
 
-                val number = "0766766021"
-                val text = "C'est un message d'alerte je suis en danger " +
-                        "http://www.google.com/maps/place/"+latitude+","+langitude
+                listContact.forEach {
+                    val number = it.phone_number
+                    val text = "C'est un message d'alerte je suis en danger " +
+                            "http://www.google.com/maps/place/"+latitude+","+langitude
+                    SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+                }
 
-                SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
 
                 Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
             }
