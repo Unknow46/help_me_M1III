@@ -185,19 +185,20 @@ class HomeFragments : Fragment() {
                 val latitude  = location?.latitude;
                 val langitude = location?.longitude;
 
-                listContact.forEach {
-                    val number = it.phone_number
-                    val text = "C'est un message d'alerte je suis en danger " +
-                            "http://www.google.com/maps/place/"+latitude+","+langitude
-                    SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+                if (!listContact.isEmpty()){
+                    listContact.forEach {
+                        val number = it.phone_number
+                        val text = "C'est un message d'alerte je suis en danger " +
+                                "http://www.google.com/maps/place/"+latitude+","+langitude
+                        SmsManager.getDefault().sendTextMessage(number,null,text,null,null)
+                        Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-
-                Toast.makeText(context as Context,"The Alert have been sending",Toast.LENGTH_SHORT).show()
+                else {
+                    Toast.makeText(context as Context,"Your Contact List Is Empty",Toast.LENGTH_SHORT).show()
+                }
             }
 
     }
-
-
 
 }
